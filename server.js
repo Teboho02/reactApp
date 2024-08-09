@@ -14,8 +14,14 @@ app.get('*', (req, res) => {
   res.send('This is where your React SSR or API response would go.');
 });
 
+app.get('car', (req, res) => {
+    // Render React app or handle API requests
+    res.send('world');
+  });
+  
+
 app.get('/api/getEnv', (req, res) => {
-  res.json({ apiUrl: process.env.apiKey});
+  res.send({ apiUrl: process.env.apiKey});
 });
 
 
