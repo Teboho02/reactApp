@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Serve static files from the 'build' directory (for React production build)
-app.use(express.static('build'));
+app.use(express.static('src'));
 
 // Example route to handle all requests (can be used for server-side rendering or API responses)
 app.get('*', (req, res) => {
