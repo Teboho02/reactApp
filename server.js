@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 app.use(express.static('src'));
 
 // Example route to handle all requests (can be used for server-side rendering or API responses)
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   // This should handle the root path or serve the React app
   res.send('This is where your React SSR or API response would go.');
 });
