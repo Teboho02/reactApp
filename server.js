@@ -6,7 +6,7 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-
+app.use(express.static(path.join(__dirname, 'build')));
 // Serve static files from the 'build' directory (for React production build)
 app.use(express.static('src'));
 
@@ -49,6 +49,10 @@ app.get('/new-page', (req, res) => {
     `);
   });
   
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
