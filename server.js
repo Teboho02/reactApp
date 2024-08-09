@@ -1,30 +1,31 @@
 const express = require('express');
 const dotenv = require('dotenv');
 
+// Load environment variables from .env file
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Serve static files from the 'build' directory (if any)
+// Serve static files from the 'build' directory (for React production build)
 app.use(express.static('build'));
 
-// Example route (API or rendering)
+// Example route to handle all requests (can be used for server-side rendering or API responses)
 app.get('*', (req, res) => {
-  // Render React app or handle API requests
+  // This should handle the root path or serve the React app
   res.send('This is where your React SSR or API response would go.');
 });
 
-app.get('car', (req, res) => {
-    // Render React app or handle API requests
-    res.send('world');
-  });
-  
-
-app.get('/api/getEnv', (req, res) => {
-  res.send({ apiUrl: process.env.apiKey});
+// Example route to handle a specific path
+app.get('/car', (req, res) => {
+  // This responds to '/car' path
+  res.send('world');
 });
 
-
+// API route to get environment variables
+app.get('/api/getEnv', (req, res) => {
+  res.send({ apiUrl: process.env.API_KEY }); // Changed to API_KEY to match common naming conventions
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
