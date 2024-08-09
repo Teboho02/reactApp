@@ -27,6 +27,29 @@ app.get('/api/getEnv', (req, res) => {
   res.send({ apiUrl: process.env.API_KEY }); // Changed to API_KEY to match common naming conventions
 });
 
+app.get('/new-page', (req, res) => {
+    res.send(`
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>New Page</title>
+      </head>
+      <body>
+        <h1>This is the new page!</h1>
+        <button id="go-back">Go Back</button>
+        <script>
+          document.getElementById('go-back').addEventListener('click', () => {
+            window.history.back();
+          });
+        </script>
+      </body>
+      </html>
+    `);
+  });
+  
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
