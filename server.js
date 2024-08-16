@@ -6,12 +6,12 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-app.use(express.static(path.join(__dirname, 'build')));
+
 // Serve static files from the 'build' directory (for React production build)
 app.use(express.static('src'));
 
 // Example route to handle all requests (can be used for server-side rendering or API responses)
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   // This should handle the root path or serve the React app
   res.send('This is where your React SSR or API response would go.');
 });
@@ -26,33 +26,6 @@ app.get('/car', (req, res) => {
 app.get('/api/getEnv', (req, res) => {
   res.send({ apiUrl: process.env.API_KEY }); // Changed to API_KEY to match common naming conventions
 });
-
-app.get('/new-page', (req, res) => {
-    res.send(`
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>New Page</title>
-      </head>
-      <body>
-        <h1>This is the new page!</h1>
-        <button id="go-back">Go Back</button>
-        <script>
-          document.getElementById('go-back').addEventListener('click', () => {
-            window.history.back();
-          });
-        </script>
-      </body>
-      </html>
-    `);
-  });
-  
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  });
-
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
