@@ -1,5 +1,11 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+// Access your API key as an environment variable (see "Set up your API key" above)
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
 
 // Load environment variables from .env file
 dotenv.config();
@@ -19,7 +25,16 @@ app.get('*', (req, res) => {
 // Example route to handle a specific path
 app.get('/car', (req, res) => {
   // This responds to '/car' path
-  res.send('world');
+  async function run() {
+  const prompt = "Write a story about an AI and magic"
+
+  const result = await model.generateContent(prompt);
+  const response = await result.response;
+  const text = response.text();
+  console.log(text);
+}
+
+  res.send(text);
 });
 
 // API route to get environment variables
